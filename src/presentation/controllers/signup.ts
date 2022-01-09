@@ -23,7 +23,4 @@ export class SignUpController implements Controllers {
       return badRequest(new InvalidParamError('email'))
     }
   }
-
-  update () {}
-  
 }
