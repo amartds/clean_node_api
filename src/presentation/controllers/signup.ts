@@ -9,6 +9,7 @@ export class SignUpController implements Controllers {
   }
 
   handle (httpRequest: HttpRequest): HttpResponse {
+    const { name, email, password, passwordConfirmation } = httpRequest.body
     try {
       const fields = ['name', 'email', 'password', 'passwordConfirmation']
       for (const field of fields) {
@@ -16,7 +17,7 @@ export class SignUpController implements Controllers {
           return badRequest(new MissingParamError(field))
         }
       }
-      if (httpRequest.body.password !== httpRequest.body.passwordConfirmation) {
+      if (password !== passwordConfirmation) {
         return badRequest(new InvalidParamError('passwordConfirmation'))
       }
 
