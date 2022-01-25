@@ -9,7 +9,7 @@ interface SutType {
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
-    isValid (email: string): boolean {
+    isValid(email: string): boolean {
       return true
     }
   }
@@ -115,7 +115,7 @@ describe('SignUp AbortController', () => {
 
   const makeEmailValidatorWithError = (): EmailValidator => {
     class EmailValidatorStub implements EmailValidator {
-      isValid (email: string): boolean {
+      isValid(email: string): boolean {
         throw new Error()
       }
     }
@@ -136,5 +136,20 @@ describe('SignUp AbortController', () => {
     const response = sut.handle(httpRequest)
     expect(response.statusCode).toBe(500)
     expect(response.body).toEqual(new ServerError())
+  })
+
+  test('should return an error with password is not equal to the passwordConfirmation', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'other_password'
+      }
+    }
+    const response = sut.handle(httpRequest)
+    expect(response.statusCode).toBe(400)
+    expect(response.body).toEqual(new InvalidParamError('passwordConfirmation'))
   })
 })
