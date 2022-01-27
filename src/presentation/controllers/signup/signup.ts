@@ -1,5 +1,5 @@
 import { AddAccount, EmailValidator } from './signup-protocols'
-import { InvalidParamError, MissingParamError } from '../../errors'
+import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 import { badRequest, serverError } from '../../helper/http-helper'
 import { HttpRequest, HttpResponse, Controllers } from '../../protocols'
 
