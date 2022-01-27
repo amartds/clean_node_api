@@ -189,4 +189,20 @@ describe('SignUp AbortController', () => {
       password: 'any_password'
     })
   })
+
+  test('should return 500 if AddAccount throw an exception', () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new Error() })
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    }
+    const res = sut.handle(httpRequest)
+    expect(res.statusCode).toBe(500)
+    expect(res.body).toEqual(new ServerError())
+  })
 })
