@@ -205,4 +205,24 @@ describe('SignUp AbortController', () => {
     expect(res.statusCode).toBe(500)
     expect(res.body).toEqual(new ServerError())
   })
+
+  it('should return 201 if an Account was saved', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password'
+      }
+    }
+    const response = sut.handle(httpRequest)
+    expect(response.statusCode).toBe(201)
+    expect(response.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password'
+    })
+  })
 })
