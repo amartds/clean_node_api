@@ -171,7 +171,7 @@ describe('SignUp AbortController', () => {
     expect(response.body).toEqual(new InvalidParamError('passwordConfirmation'))
   })
 
-  test('should call the AddAccount with the add method', async () => {
+  test('should call the AddAccount with values', async () => {
     const { sut, addAccountStub } = makeSut()
     const addSpy = jest.spyOn(addAccountStub, 'add')
     const httpRequest = {
