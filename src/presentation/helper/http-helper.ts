@@ -1,17 +1,17 @@
-import { ServerError } from '../errors'
-import { HttpResponse } from '../protocols'
+import { ServerError } from '../errors';
+import { HttpResponse } from '../protocols';
 
 export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400,
-  body: error
-})
+  body: error,
+});
 
 export const serverError = (): HttpResponse => ({
   statusCode: 500,
-  body: new ServerError()
-})
+  body: new ServerError(),
+});
 
 export const created = async (data: any): Promise<HttpResponse> => ({
   statusCode: 201,
-  body: data
-})
+  body: data,
+});
