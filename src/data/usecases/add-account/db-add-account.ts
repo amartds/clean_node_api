@@ -11,7 +11,7 @@ export class DbAddAccount implements AddAccount {
   private readonly addAccountRepository: AddAccountRepository;
   constructor(
     encrypter: Encripter,
-    addAccountRepository: AddAccountRepository
+    addAccountRepository: AddAccountRepository,
   ) {
     this.encrypter = encrypter;
     this.addAccountRepository = addAccountRepository;
