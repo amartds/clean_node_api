@@ -6,7 +6,6 @@ jest.mock('bcrypt', () => ({
     return new Promise(resolve => resolve('any_hash_valid'));
   },
 }));
-
 describe('BcryptAdapter', () => {
   let sut: BcryptAdapter;
   beforeEach(async () => {
@@ -19,10 +18,14 @@ describe('BcryptAdapter', () => {
       expect(spyHash).toHaveBeenCalled();
       expect(spyHash).toHaveBeenCalledWith('any_value_valid', 12);
     });
-
     it('should return the correct hash using bcrypt', async () => {
       const response = await sut.encrypt('any_value_valid');
       expect(response).toBe('any_hash_valid');
+    });
+    it('should throw an exception if bcrypt throw', async () => {
+      bcrypt.hash = jest.fn().mockReturnValue(new Promise((resolve, reject) => reject(new Error())));
+      const promise = sut.encrypt('any_value_valid');
+      await expect(promise).rejects.toThrow();
     });
   });
 });
